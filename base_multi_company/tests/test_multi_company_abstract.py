@@ -120,3 +120,19 @@ class TestMultiCompanyAbstract(common.SavepointCase):
                          'Record should have been changed to active.')
         self.assertTrue(self.record.sudo(other_user).active,
                         'Record was deactivated in other companies.')
+
+    def test_active_by_company_search_false(self):
+        """ It should allow for search of inactive records. """
+        self.record.active = False
+        self.assertFalse(self.record.active,
+                         'Record should be inactive.')
+        matches = self.Model.search([('active', '=', False),])
+        self.assertEqual(len(matches), 1)
+
+    def test_active_by_company_search_true(self):
+        """ It should allow for search of active records. """
+        self.assertTrue(self.record.active,
+                         'Record should be active.')
+        matches = self.Model.search([('active', '=', True),])
+        self.assertEqual(len(matches), 1)
+
