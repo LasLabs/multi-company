@@ -6,22 +6,13 @@
 Multi Company Base
 ==================
 
-This module provides an abstract model to be inherited by models that need to implement multi-company functionality.
-
-Installation
-============
-
-To install this module, simply follow the standard install process.
-
-Configuration
-=============
-
-No configuration is needed or possible.
+This module provides an abstract model to be inherited by models that need to implement permissions to allow the same record to be
 
 Usage
 =====
 
-Todo
+When you want to add multi company Inherit the `multi.company.abstract` model
+
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
