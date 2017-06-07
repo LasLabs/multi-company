@@ -32,7 +32,8 @@ class TestProductMultiCompany(common.TransactionCase):
         )
         self.product_company_none = self.env['product.product'].create(
             {'name': 'Product without company',
-             'company_ids': [(6, 0, [])]})
+             'company_ids': [(6, 0, [])],
+             'company_id': False})
         self.product_company_1 = self.env['product.product'].create(
             {'name': 'Product from company 1',
              'company_ids': [(6, 0, self.company_1.ids)]})
