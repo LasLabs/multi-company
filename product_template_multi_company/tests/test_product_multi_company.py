@@ -25,9 +25,11 @@ class TestProductMultiCompany(common.TransactionCase):
             'perm_unlink': True,
         })
         self.company_1 = self.env['res.company'].create(
-            {'name': 'Test company 1'})
+            {'name': 'Test company 1'}
+        )
         self.company_2 = self.env['res.company'].create(
-            {'name': 'Test company 2'})
+            {'name': 'Test company 2'}
+        )
         self.product_company_none = self.env['product.product'].create(
             {'name': 'Product without company',
              'company_ids': [(6, 0, [])]})
@@ -68,7 +70,10 @@ class TestProductMultiCompany(common.TransactionCase):
         self.product_company_none.sudo(self.user_company_2.id).name = "Test"
 
     def test_company_1(self):
-        self.assertEqual(self.product_company_1.company_id, self.company_1)
+        self.assertEqual(
+            self.product_company_1.sudo(self.user_company_1).company_id,
+            self.company_1,
+        )
         # All of this should be allowed
         self.product_company_1.sudo(self.user_company_1).name = "Test"
         self.product_company_both.sudo(self.user_company_1).name = "Test"
@@ -77,7 +82,10 @@ class TestProductMultiCompany(common.TransactionCase):
             self.product_company_2.sudo(self.user_company_1).name = "Test"
 
     def test_company_2(self):
-        self.assertEqual(self.product_company_2.company_id, self.company_2)
+        self.assertEqual(
+            self.product_company_2.sudo(self.user_company_2).company_id,
+            self.company_2,
+        )
         # All of this should be allowed
         self.product_company_2.sudo(self.user_company_2).name = "Test"
         self.product_company_both.sudo(self.user_company_2).name = "Test"
